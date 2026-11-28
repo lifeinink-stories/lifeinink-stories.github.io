@@ -44,7 +44,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
           Follow on Instagram</a>
       </div>
-      <div class="facts"><div><b>2D animated</b>original stories</div><div><b>1–3 min</b>Shorts &amp; Reels</div><div><b>5 series</b>from real life</div></div>
+      <div class="facts"><div><b>2D animated</b>original stories</div><div><b>1–3 min</b>Shorts &amp; Reels</div><div><b>5 series</b>from real life</div><div id="stat-views" hidden><b></b>views so far</div></div>
     </div>
     <div class="mascot" aria-hidden="true">
       <div class="ring"></div><div class="ring r2"></div>
@@ -64,20 +64,21 @@
   <div class="wrap">
     <div class="head reveal">
       <div><div class="kicker">The stories</div><h2>Watch the latest</h2>
-        <p class="sub">Every story starts from something that really happened. Names change, the punchline gets sharper.</p></div>
+        <p class="sub">Every story starts from something that really happened. Names change, the punchline gets sharper.</p>
+        <p class="updated" id="stat-updated" hidden></p></div>
       <a class="link-arrow" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts">All Shorts <span><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     </div>
     <div class="stories">
-      <a class="story reveal" style="--d:.0s" href="https://youtube.com/shorts/lx8xMQP80gk"><img src="img/one_table_apart.jpg" alt="One Table Apart cover" loading="lazy">
-        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="cap"><small>ONLINE LIFE</small><b>One Table Apart</b></span></a>
-      <a class="story reveal" style="--d:.08s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/real_or_ad.jpg" alt="Real or Ad? cover" loading="lazy">
-        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="cap"><small>ONLINE LIFE</small><b>Real or Ad?</b></span></a>
-      <a class="story reveal" style="--d:.16s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/coincidence_i_think_not.jpg" alt="Coincidence? I Think Not. cover" loading="lazy">
-        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="cap"><small>ONLINE LIFE</small><b>Coincidence? I Think Not.</b></span></a>
-      <a class="story reveal" style="--d:.24s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/zero_percent.jpg" alt="Zero Percent cover" loading="lazy">
-        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="cap"><small>MONEY</small><b>Zero Percent</b></span></a>
-      <a class="story reveal" style="--d:.32s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/four_lifetimes_zero_words.jpg" alt="Four Lifetimes, Zero Words cover" loading="lazy">
-        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="cap"><small>LOVE LIFE</small><b>Four Lifetimes, Zero Words</b></span></a>
+      <a class="story reveal" data-story="one_table_apart" style="--d:.0s" href="https://youtube.com/shorts/lx8xMQP80gk"><img src="img/one_table_apart.jpg" alt="One Table Apart cover" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="views" hidden></span><span class="cap"><small>ONLINE LIFE</small><b>One Table Apart</b></span></a>
+      <a class="story reveal" data-story="real_or_ad" style="--d:.08s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/real_or_ad.jpg" alt="Real or Ad? cover" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="views" hidden></span><span class="cap"><small>ONLINE LIFE</small><b>Real or Ad?</b></span></a>
+      <a class="story reveal" data-story="coincidence" style="--d:.16s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/coincidence_i_think_not.jpg" alt="Coincidence? I Think Not. cover" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="views" hidden></span><span class="cap"><small>ONLINE LIFE</small><b>Coincidence? I Think Not.</b></span></a>
+      <a class="story reveal" data-story="zero_percent" style="--d:.24s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/zero_percent.jpg" alt="Zero Percent cover" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="views" hidden></span><span class="cap"><small>MONEY</small><b>Zero Percent</b></span></a>
+      <a class="story reveal" data-story="four_lifetimes" style="--d:.32s" href="https://www.youtube.com/channel/UCiRv8YfGqeu7sdp62lpxlKg/shorts"><img src="img/four_lifetimes_zero_words.jpg" alt="Four Lifetimes, Zero Words cover" loading="lazy">
+        <span class="play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg></span><span class="views" hidden></span><span class="cap"><small>LOVE LIFE</small><b>Four Lifetimes, Zero Words</b></span></a>
     </div>
   </div>
 </section>
