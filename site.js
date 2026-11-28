@@ -1,11 +1,31 @@
-// Life In Ink: scroll reveal + table-of-contents highlight. No tracking, no cookies.
+// Life In Ink: menu, scroll reveal, table-of-contents highlight and live stats. No tracking, no cookies.
 (function () {
+  // mobile menu
+  var btn = document.querySelector(".menu-btn"), menu = document.getElementById("menu");
+  if (btn && menu) {
+    var set = function (open) { menu.classList.toggle("open", open); btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu"); };
+    btn.addEventListener("click", function () { set(!menu.classList.contains("open")); });
+    menu.addEventListener("click", function (e) { if (e.target.closest("a")) set(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") set(false); });
+  }
+
   var els = document.querySelectorAll(".reveal");
   if (!("IntersectionObserver" in window)) { els.forEach(function (e) { e.classList.add("in"); }); return; }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
   }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   els.forEach(function (e) { io.observe(e); });
+
+  // highlight the nav link of the section on screen
+  var links = {}; document.querySelectorAll('.nav nav a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+  var nav = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      var a = links[en.target.id]; if (!a) return;
+      if (en.isIntersecting) { Object.keys(links).forEach(function (k) { links[k].classList.remove("on"); }); a.classList.add("on"); }
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) nav.observe(s); });
 
   var toc = document.querySelectorAll(".toc a");
   if (toc.length) {
@@ -20,8 +40,8 @@
 })();
 
 // Live stories + view counts: stats.json is rewritten by the Raspberry Pi every few hours (public stories, YouTube + Instagram
-// views, nothing private). The 5 newest public stories become the cards; the cards in index.html stay as the fallback.
-// Until it loads nothing changes, so no numbers are ever made up.
+// views, nothing private). The newest public story goes on the hero phone, the 5 newest become the cards, and the series cards
+// count their episodes. The HTML stays as the fallback, so until it loads nothing changes and no numbers are ever made up.
 (function () {
   if (!window.fetch) return;
   var SHOW = 5;
@@ -41,12 +61,13 @@
   var play = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>';
 
   function card(key, s, i) {
-    var a = el("a", "story reveal in"); a.setAttribute("data-story", key); a.style.setProperty("--d", (i * 0.08).toFixed(2) + "s");
+    var a = el("a", "story reveal in"); a.setAttribute("data-story", key); a.style.setProperty("--d", (i * 0.06).toFixed(2) + "s");
     a.href = s.youtube || s.instagram;
-    var img = el("img"); img.src = s.image; img.alt = s.title + " cover"; img.loading = "lazy"; a.appendChild(img);
+    var img = el("img"); img.src = s.image; img.alt = s.title + " cover"; img.loading = "lazy"; img.width = 480; img.height = 853; a.appendChild(img);
     var p = el("span", "play"); p.innerHTML = play; a.appendChild(p);
     var v = el("span", "views"); v.hidden = true; a.appendChild(v);
-    var cap = el("span", "cap"); cap.appendChild(el("small", "", s.series)); cap.appendChild(el("b", "", s.title)); a.appendChild(cap);
+    var cap = el("span", "cap"); cap.appendChild(el("small", "", s.series)); cap.appendChild(el("b", "", s.title));
+    if (s.no) cap.appendChild(el("em", "", "Ep " + s.no)); a.appendChild(cap);
     return a;
   }
 
@@ -54,9 +75,11 @@
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       if (!d || !d.stories) return;
+      var all = Object.keys(d.stories).filter(function (k) { var s = d.stories[k]; return s.image && s.title && (s.youtube || s.instagram); })
+        .sort(function (x, y) { var a = d.stories[x], b = d.stories[y]; return (b.posted + b.no).localeCompare(a.posted + a.no); });
+      var keys = all.slice(0, SHOW);
+
       var grid = document.querySelector(".stories");
-      var keys = Object.keys(d.stories).filter(function (k) { var s = d.stories[k]; return s.image && s.title && (s.youtube || s.instagram); })
-        .sort(function (x, y) { var a = d.stories[x], b = d.stories[y]; return (b.posted + b.no).localeCompare(a.posted + a.no); }).slice(0, SHOW);
       var now = Array.prototype.map.call(grid ? grid.querySelectorAll(".story") : [], function (a) { return a.getAttribute("data-story"); });
       if (grid && keys.length >= Math.min(SHOW, now.length) && keys.join() !== now.join()) {
         grid.textContent = ""; keys.forEach(function (k, i) { grid.appendChild(card(k, d.stories[k], i)); });
@@ -67,8 +90,27 @@
         var b = a.querySelector(".views");
         if (b && s.views > 0) { b.innerHTML = eye + short(s.views) + " views"; b.hidden = false; }
       });
+
+      // hero phone: newest episode, the two before it behind
+      var ph = document.getElementById("latest");
+      if (ph && keys.length) {
+        var L = d.stories[keys[0]]; ph.href = L.youtube || L.instagram;
+        var im = ph.querySelector("img"); im.src = L.image; im.alt = L.title + " cover";
+        ph.querySelector(".ph-cap small").textContent = L.series; ph.querySelector(".ph-cap b").textContent = L.title;
+        var backs = document.querySelectorAll(".hero-visual .back");
+        if (keys.length >= 3 && backs.length === 2) { backs[0].src = d.stories[keys[1]].image; backs[1].src = d.stories[keys[2]].image; }
+      }
+
+      // episodes per series
+      document.querySelectorAll(".serie[data-series]").forEach(function (c) {
+        var names = c.getAttribute("data-series").split("|"), n = all.filter(function (k) { return names.indexOf(d.stories[k].series) >= 0; }).length;
+        c.querySelector(".count").textContent = n ? n + (n === 1 ? " episode" : " episodes") : "First episode coming soon";
+      });
+
       var v = document.getElementById("stat-views");
-      if (v && d.views > 0) { v.querySelector("b").textContent = short(d.views) + "+"; v.hidden = false; }
+      if (v && d.views > 0) { v.querySelector("dd").textContent = short(d.views) + "+"; v.hidden = false; }
+      var n = document.getElementById("stat-count");
+      if (n && all.length) { n.querySelector("dd").textContent = all.length; n.hidden = false; }
       var u = document.getElementById("stat-updated"), t = d.updated && ago(d.updated);
       if (u && t) { u.textContent = "Live views from YouTube + Instagram, updated " + t; u.hidden = false; }
     })
