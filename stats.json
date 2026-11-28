@@ -1,32 +1,57 @@
 {
- "updated": "2026-11-28T02:00:03+00:00",
+ "updated": "2026-11-28T02:05:39+00:00",
  "views": 4117,
  "youtube_views": 2154,
  "instagram_views": 1963,
  "stories": {
   "one_table_apart": {
    "views": 1050,
+   "no": "01",
+   "title": "One Table Apart",
+   "series": "ONLINE LIFE",
+   "posted": "2026-11-19",
    "youtube": "https://youtube.com/shorts/lx8xMQP80gk",
-   "instagram": "https://www.instagram.com/reel/Df7U-evu2ie/"
+   "instagram": "https://www.instagram.com/reel/Df7U-evu2ie/",
+   "image": "img/one_table_apart.jpg"
   },
   "real_or_ad": {
    "views": 311,
-   "instagram": "https://www.instagram.com/reel/DgAmQMXS_XC/"
+   "no": "02",
+   "title": "Real or Ad?",
+   "series": "ONLINE LIFE",
+   "posted": "2026-11-21",
+   "instagram": "https://www.instagram.com/reel/DgAmQMXS_XC/",
+   "image": "img/real_or_ad.jpg"
   },
   "coincidence": {
    "views": 270,
+   "no": "03",
+   "title": "Coincidence? I Think Not.",
+   "series": "ONLINE LIFE",
+   "posted": "2026-11-23",
    "youtube": "https://youtube.com/shorts/2XwpJYrNJno",
-   "instagram": "https://www.instagram.com/reel/DgFolomPd-G/"
+   "instagram": "https://www.instagram.com/reel/DgFolomPd-G/",
+   "image": "img/coincidence_i_think_not.jpg"
   },
   "zero_percent": {
    "views": 1060,
+   "no": "04",
+   "title": "Zero Percent",
+   "series": "MONEY",
+   "posted": "2026-11-26",
    "youtube": "https://youtube.com/shorts/D_xIocsOd8g",
-   "instagram": "https://www.instagram.com/reel/DgL3fMMyjUY/"
+   "instagram": "https://www.instagram.com/reel/DgL3fMMyjUY/",
+   "image": "img/zero_percent.jpg"
   },
   "four_lifetimes": {
    "views": 1408,
+   "no": "05",
+   "title": "Four Lifetimes, Zero Words",
+   "series": "LOVE LIFE",
+   "posted": "2026-11-27",
    "youtube": "https://youtube.com/shorts/tEF9yINJuCo",
-   "instagram": "https://www.instagram.com/reel/DgP23P1JTu4/"
+   "instagram": "https://www.instagram.com/reel/DgP23P1JTu4/",
+   "image": "img/four_lifetimes_zero_words.jpg"
   }
  }
 }
